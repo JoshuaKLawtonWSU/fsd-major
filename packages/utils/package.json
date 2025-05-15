@@ -1,0 +1,25 @@
+{
+  "name": "@repo/utils",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+   "dev": "tsc --watch",
+   "build": "tsc",
+   "test": "tsc --noEmit",
+   "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  },
+  "exports": {
+    "./messages": {
+      "types": "./src/messages.ts",
+      "default": "./dist/messages.js"
+    },
+    "./tempData": {
+      "types": "./src/tempData.ts",
+      "default": "./dist/tempData.js"
+    }
+  }
+}

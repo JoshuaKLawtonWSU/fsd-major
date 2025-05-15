@@ -1,6 +1,11 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
+import { greet } from "@repo/utils/messages";
+import { AppLayout } from "../components/layout/appLayout";
+import type { Product } from "@repo/utils/data";
+import { products } from "@repo/utils/tempData";
+import { ProductList } from "../components/products/productList";
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -20,7 +25,14 @@ const ThemeImage = (props: Props) => {
 
 export default function Home() {
   return (
+    <AppLayout>
+      <ProductList products={products} />
+    </AppLayout>
+  );
+
+  return (
     <div className={styles.page}>
+      {greet("World")}
       <main className={styles.main}>
         <ThemeImage
           className={styles.logo}
