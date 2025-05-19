@@ -37,7 +37,7 @@ console.log("Hello console?");
 export default function Home() {
   return (
     <AppLayout>
-      {/* <ProductList products={getProducts} /> */}
+      <ProductList products={allProducts} />
     </AppLayout>
   );
 

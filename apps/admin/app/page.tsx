@@ -1,6 +1,22 @@
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
+import { isLoggedIn, logIn, logOut } from "./utils/auth";
+import createClient from "../../../packages/db/prismaClient";
+
+type Product = {
+  id: number,
+  name: string,
+  description: string,
+  price: number,
+  stock: number,
+}
+
+const prisma = createClient();
+async function getProducts() {
+  const products = await prisma.product.findMany();
+  return products;
+}
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -18,7 +34,75 @@ const ThemeImage = (props: Props) => {
   );
 };
 
-export default function Home() {
+export default async function Home() {
+  const loggedIn = await isLoggedIn();
+  if (!loggedIn) {
+    return (
+      <main className={styles.main}>
+        <h1>PCTech Admin Page</h1>
+        <p>Not logged in</p>
+        <form action={logIn}>
+          <label>
+            Username:
+            <input type="text" name="username" id="username" />
+          </label>
+          <br />
+          <label>
+            Password:
+            <input type="password" name="password" id="password" />
+          </label>
+          <br />
+          <button type="submit" className={styles.logButton}>Login</button>
+        </form>
+      </main>
+    );
+  } else {
+    const allProducts = await getProducts();
+    console.log(allProducts);
+    console.log("Hello console?");
+    return (
+      <div>
+        <div className="TopBar">
+          <h1>PCTech Admin Page</h1>
+          <button type="submit" onClick={logOut} className={styles.logButton}>
+            Logout
+          </button>
+        </div>
+        <div className="LeftBar">
+          <h2>Left Bar</h2>
+          <p>Contains:</p>
+          <ul>
+            <li>Products</li>
+            <li>Brands</li>
+            <li>Categories</li>
+          </ul>
+        </div>
+        <div className="SearchSort Functionality">
+          <h2>INSERT SEARCH/SORT</h2>
+        </div>
+        <div>
+          <button>
+            Create new Product
+          </button>
+        </div>
+        <div>
+          <div>
+            {allProducts.map((product) => (
+              <div key={product.id} className="product">
+                <h2>{product.name}</h2>
+                <p>{product.description}</p>
+                <p>Price: ${product.price}</p>
+                <p>Stock: {product.stock}</p>
+                <p>ID: {product.id}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
