@@ -15,19 +15,19 @@ generator client {
 }
  
 model Product {
-  id           Int       @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   name         String
   description  String
   price        Float
   stock        Int
-  tags         Type[]     @relation("ProductTypes")
-  brand        Brand[]   @relation("ProductBrands")
+  category     Category[]  @relation("ProductCategories")
+  brand        Brand[]     @relation("ProductBrands")
 }
  
-model Type {
+model Category {
   id        Int        @id @default(autoincrement())
   name      String     @unique
-  products  Product[]  @relation("ProductTypes")
+  products  Product[]  @relation("ProductCategories")
 }
 
 model Brand {

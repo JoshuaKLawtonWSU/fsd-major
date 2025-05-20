@@ -2,8 +2,10 @@ import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
 import { isLoggedIn, logIn, logOut } from "./utils/auth";
-import createClient from "../../../packages/db/prismaClient";
+// import createClient from "../../../packages/db/prismaClient";
 import Link from "next/link";
+import { getAllProducts } from "./utils/db";
+
 
 type Product = {
   id: number,
@@ -13,11 +15,11 @@ type Product = {
   stock: number,
 }
 
-const prisma = createClient();
-async function getProducts() {
-  const products = await prisma.product.findMany();
-  return products;
-}
+// const prisma = createClient();
+// async function getProducts() {
+//   const products = await prisma.product.findMany();
+//   return products;
+// }
 
 type Props = Omit<ImageProps, "src"> & {
   srcLight: string;
@@ -26,7 +28,7 @@ type Props = Omit<ImageProps, "src"> & {
 
 const ThemeImage = (props: Props) => {
   const { srcLight, srcDark, ...rest } = props;
-
+  
   return (
     <>
       <Image {...rest} src={srcLight} className="imgLight" />
@@ -58,7 +60,7 @@ export default async function Home() {
       </main>
     );
   } else {
-    const allProducts = await getProducts();
+    const allProducts = await getAllProducts();
     console.log(allProducts);
     console.log("Hello console?");
     return (
@@ -90,7 +92,9 @@ export default async function Home() {
           <div>
             {allProducts.map((product) => (
               <div key={product.id} className="product">
-                <h2>{product.name}</h2>
+                <Link href={`/product/${product.id}`}>
+                  <h2>{product.name}</h2>
+                </Link>
                 <p>{product.description}</p>
                 <p>Price: ${product.price}</p>
                 <p>Stock: {product.stock}</p>
