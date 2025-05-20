@@ -3,6 +3,7 @@ import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
 import { isLoggedIn, logIn, logOut } from "./utils/auth";
 import createClient from "../../../packages/db/prismaClient";
+import Link from "next/link";
 
 type Product = {
   id: number,
@@ -81,9 +82,9 @@ export default async function Home() {
           <h2>INSERT SEARCH/SORT</h2>
         </div>
         <div>
-          <button>
+          <Link href="/products/add">
             Create new Product
-          </button>
+          </Link>
         </div>
         <div>
           <div>
