@@ -1,5 +1,8 @@
 "use client";
 
+import styles from "./../../app/page.module.css";
+import { ProductItem } from "./productItem";
+
 // import type { Product } from "@repo/utils/tempData";
 type Product = {
     id: number,
@@ -11,15 +14,9 @@ type Product = {
 
 export function ProductList({ products }: { products: Product[] }) {
     return (
-        <div>
+        <div className={styles.productList}>
             {products.map((product) => (
-                <div key={product.id} className="product">
-                    <h2>{product.name}</h2>
-                    <p>{product.description}</p>
-                    <p>Price: ${product.price}</p>
-                    <p>Stock: {product.stock}</p>
-                    <button onClick={() => alert(`Added ${product.name} to cart!`)}>Add to Cart</button>
-                </div>
+                <ProductItem key={product.id} product={product} />
             ))}
         </div>
     );

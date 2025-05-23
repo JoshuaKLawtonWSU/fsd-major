@@ -1,17 +1,26 @@
+import Link from "next/link";
+import styles from "./../../app/page.module.css";
+
 export function LeftMenu() {
     return (
-        <div> {/* Add className={styles.leftMenu} */}
-            <h2>Left Menu Here</h2>
+        <div className={styles.leftMenu}>
+            <h2>Categories</h2>
             <nav>
                 <ul>
-                    <li>
-                        <p>Sidebar Nav list 1 (ADD LIST)</p> {/* Make a Link element (not a href) */}
+                <li>
+                        <Link href="/">Electronics</Link>
                     </li>
                     <li>
-                        <p>Sidebar Nav list 2 (ADD LIST)</p> {/* Make a Link element (not a href) */}
+                        <Link href="/">Clothing</Link>
                     </li>
                     <li>
-                        <p>Sidebar Nav list 3 (ADD LIST)</p> {/* Make a Link element (not a href) */}
+                        <Link href="/">Home & Garden</Link>
+                    </li>
+                    <li>
+                        <Link href="/">Books</Link>
+                    </li>
+                    <li>
+                        <Link href="/">Sports & Outdoors</Link>
                     </li>
                 </ul>
             </nav>
