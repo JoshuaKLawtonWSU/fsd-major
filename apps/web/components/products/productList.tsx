@@ -13,11 +13,17 @@ type Product = {
 }
 
 export function ProductList({ products }: { products: Product[] }) {
-    return (
-        <div className={styles.productList}>
-            {products.map((product) => (
-                <ProductItem key={product.id} product={product} />
-            ))}
-        </div>
-    );
+    if (products.length === 0) {
+        return (
+            <p>0 products</p>
+        );
+    } else {
+        return (
+            <div className={styles.productList}>
+                {products.map((product) => (
+                    <ProductItem key={product.id} product={product} />
+                ))}
+            </div>
+        );
+    }
 }

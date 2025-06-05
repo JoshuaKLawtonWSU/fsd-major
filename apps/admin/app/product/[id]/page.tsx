@@ -14,7 +14,7 @@ type Product = {
     stock: number,
 }
 
-export default async function EditProduct({params}: {params: {id: string}}) {
+export default async function EditProduct({params}: {params: Promise<{id: string}>}) {
     const loggedIn = await isLoggedIn();
     if (!loggedIn) {
         redirect("/");
