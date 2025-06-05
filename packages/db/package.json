@@ -17,5 +17,6 @@
     "prisma": "^6.8.2"
   },
   "devDependencies": {
+    "@prisma/nextjs-monorepo-workaround-plugin": "^6.9.0"
   }
 }
