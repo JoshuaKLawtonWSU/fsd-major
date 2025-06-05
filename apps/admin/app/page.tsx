@@ -104,7 +104,7 @@ export default async function Home() {
           </div>
 
           <div className={styles.productGrid}>
-            {allProducts.map((product) => (
+            {allProducts.map((product : any) => (
               <div key={product.id} className={styles.productCard}>
                 <Link href={`/product/${product.id}`}>
                   <div className={styles.productContent}>
