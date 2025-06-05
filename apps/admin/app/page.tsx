@@ -41,68 +41,86 @@ export default async function Home() {
   const loggedIn = await isLoggedIn();
   if (!loggedIn) {
     return (
-      <main className={styles.main}>
-        <h1>PCTech Admin Page</h1>
+      <div className={styles.loginForm}>
+        <h1>PCTech Admin</h1>
         <p>Not logged in</p>
         <form action={logIn}>
-          <label>
-            Username:
-            <input type="text" name="username" id="username" />
-          </label>
-          <br />
-          <label>
-            Password:
-            <input type="password" name="password" id="password" />
-          </label>
-          <br />
-          <button type="submit" className={styles.logButton}>Login</button>
+          <div className={styles.formGroup}>
+            <label>
+              Username:
+              <input type="text" name="username" id="username" />
+            </label>
+          </div>
+          <div className={styles.formGroup}>
+            <label>
+              Password:
+              <input type="password" name="password" id="password" />
+            </label>
+          </div>
+          <div className={styles.buttonRow}>
+            <button type="submit" className={styles.logButton}>Login</button>
+          </div>
         </form>
-      </main>
+      </div>
     );
   } else {
     const allProducts = await getAllProducts();
     console.log(allProducts);
     console.log("Hello console?");
     return (
-      <div>
-        <div className="TopBar">
+      <div className={styles.adminLayout}>
+
+        <header className={styles.header}>
           <h1>PCTech Admin Page</h1>
           <button type="submit" onClick={logOut} className={styles.logButton}>
             Logout
           </button>
-        </div>
-        <div className="LeftBar">
-          <h2>Left Bar</h2>
-          <p>Contains:</p>
+        </header>
+
+        <aside className={styles.sidebar}>
+          <h2>Database Items</h2>
           <ul>
             <li>Products</li>
             <li>Brands</li>
             <li>Categories</li>
           </ul>
-        </div>
-        <div className="SearchSort Functionality">
-          <h2>INSERT SEARCH/SORT</h2>
-        </div>
-        <div>
-          <Link href="/products/add">
-            Create new Product
-          </Link>
-        </div>
-        <div>
-          <div>
+        </aside>
+
+        <main className={styles.content}>
+          <div className={styles.actionBar}>
+            <div className={styles.searchBarContainer}>
+              <input
+                type="text"
+                className={styles.searchBar}
+                placeholder="Search products..."
+              />
+            </div>
+            <Link href="/products/add" className={styles.addButton}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.addButtonIcon}>
+                <path d="M8 1V15M1 8H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Add Product
+            </Link>
+          </div>
+
+          <div className={styles.productGrid}>
             {allProducts.map((product) => (
-              <div key={product.id} className="product">
+              <div key={product.id} className={styles.productCard}>
                 <Link href={`/product/${product.id}`}>
-                  <h2>{product.name}</h2>
+                  <div className={styles.productContent}>
+                    <h2>{product.name}</h2>
+                    <p>{product.description}</p>
+                    <div className={styles.productMeta}>
+                      <span className={styles.price}>${product.price}</span>
+                      <span className={styles.stock}>{product.stock} in stock</span>
+                      <span className={styles.id}>ID: {product.id}</span>
+                    </div>
+                  </div>
                 </Link>
-                <p>{product.description}</p>
-                <p>Price: ${product.price}</p>
-                <p>Stock: {product.stock}</p>
-                <p>ID: {product.id}</p>
               </div>
             ))}
           </div>
-        </div>
+        </main>
       </div>
     );
   }

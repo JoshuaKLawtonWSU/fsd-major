@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { putNewProduct } from "../utils/db";
 import { redirect } from "next/navigation";
+import styles from "./../page.module.css";
 
 
 
